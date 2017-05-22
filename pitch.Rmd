@@ -1,0 +1,44 @@
+---
+title: "Exploration Visualization Tool!"
+author: "Triston Cossette"
+date: "5/22/2017"
+output: ioslides_presentation
+---
+
+##Problem: Exploring Your Data is Hard
+```{r echo=FALSE}
+library(ggplot2)
+```
+At the beginning of every data analysis, there is an exploratory phase.
+- What are the key variables?
+- How do they relate?
+- What are their distributions?
+
+Unfortunately, analyzing each of them requires constant r coding and tweaking. Take for example, the mtcars data set, a common set used for r students.
+
+
+##Problem: Exploring Your Data is Hard
+If I wanted to check out a scatterplot of Weight by MPG, I may write a simple ggplot.  But modifying it to the chart on the right means you have to remember how to add the color aethetic.
+
+```{r out.width=c('300px', '300px'), fig.show='hold', size='small'}
+ggplot(mtcars, aes(x=wt, y=mpg)) + geom_point(size=5)
+ggplot(mtcars, aes(x=wt, y=mpg, color=am)) + geom_point(size=5)
+```
+
+##Solution: Use an Exploration Visualization Tool
+But doing this by every variable combination can take a lot of time.  What if you could could just select from a drop down, and have the charts generate for you?
+
+Exploration Visualization Tool does this exact thing by use of Shiny's interactivity.  Here is some sample code.  This one is for show only; it won't run without the rest of the special Shiny secret sauce:
+```{r eval=FALSE}
+        output$Scatter1<-renderPlot({
+        ggplot(mtcars, aes_string(x=input$varname1, 
+        y="mpg", color=input$varname2)) + geom_point(size=5)
+        })
+```
+
+##The tool in action
+Check out the tool in action:
+
+![alt text](https://raw.github.com/tico85/ExploreDataProduct/master/Explore.png)
+
+Thank you!
